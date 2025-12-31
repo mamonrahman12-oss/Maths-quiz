@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Maths Quiz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;background:#f5f7fb;margin:0;padding-bottom:70px}
+.container{max-width:420px;margin:20px auto;background:#fff;
+border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.1);padding:16px}
+.question{font-size:22px;text-align:center;margin:20px 0}
+.options button{width:100%;padding:12px;margin:6px 0;font-size:18px;
+border-radius:8px;border:none;background:#e9eef7}
+#next{width:100%;padding:12px;font-size:18px;border-radius:8px;
+border:none;background:#4caf50;color:#fff}
+.footer{position:fixed;bottom:0;width:100%;text-align:center;
+background:#fff;border-top:1px solid #ddd;padding:8px 0}
+.madeby{color:#1e88e5;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2 style="text-align:center">Maths Quiz</h2>
+<div id="qno"></div>
+<div class="question" id="question"></div>
+
+<div class="options">
+<button onclick="check(this)"></button>
+<button onclick="check(this)"></button>
+<button onclick="check(this)"></button>
+<button onclick="check(this)"></button>
+</div>
+
+<div id="result"></div>
+<button id="next" onclick="nextQ()">Next Question</button>
+<div id="score"></div>
+</div>
+
+<div class="footer">
+<div class="madeby">Made by Mamon</div>
+<div>Popat ho gya apka</div>
+</div>
+
+<script>
+const quiz=[
+{q:"2 + 3 = ?",o:[5,4,6,3],a:5},
+{q:"6 − 2 = ?",o:[3,4,5,2],a:4},
+{q:"4 + 5 = ?",o:[9,8,7,6],a:9},
+{q:"10 − 7 = ?",o:[3,2,4,1],a:3}
+];
+let i=0,score=0,answered=false;
+
+function load(){
+document.getElementById('qno').innerText=`Question ${i+1} / ${quiz.length}`;
+document.getElementById('question').innerText=quiz[i].q;
+document.querySelectorAll('.options button').forEach((b,idx)=>{
+b.innerText=quiz[i].o[idx];b.disabled=false;});
+document.getElementById('result').innerText="";
+answered=false;
+}
+function check(btn){
+if(answered)return;
+answered=true;
+if(parseInt(btn.innerText)==quiz[i].a){
+document.getElementById('result').innerText="Correct 🎉";score++;
+}else{
+document.getElementById('result').innerText="Wrong ❌";
+}
+document.getElementById('score').innerText="Score: "+score;
+}
+function nextQ(){
+if(i<quiz.length-1){i++;load();}
+else{
+document.getElementById('question').innerText="Quiz Completed 🎉";
+document.getElementById('next').disabled=true;
+}
+}
+load();
+</script>
+
+</body>
+</html>
+
